@@ -22,7 +22,7 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* subtle grid overlay (Swiss-tech inspired, barely visible) */
+    /* subtle grid overlay */
     .grid-bg {
       position: fixed;
       top: 0;
@@ -37,7 +37,6 @@
       background-size: 48px 48px;
     }
 
-    /* main container */
     .container {
       max-width: 1280px;
       margin: 0 auto;
@@ -46,24 +45,19 @@
       z-index: 2;
     }
 
-    /* sections spacing */
     .hero-section {
       margin-bottom: 4rem;
     }
-
     .image-section {
       margin-bottom: 5rem;
     }
-
     .features-section {
       margin-bottom: 5rem;
     }
-
     .logos-section {
       margin-bottom: 3rem;
     }
 
-    /* logo area (top) */
     .logo-marker {
       margin-bottom: 3rem;
     }
@@ -78,11 +72,8 @@
       border: 1px solid #e2e2e2;
       padding: 0.35rem 1rem;
       border-radius: 40px;
-      backdrop-filter: blur(0px);
-      transition: border 0.2s;
     }
 
-    /* typography */
     h1 {
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 500;
@@ -111,7 +102,7 @@
       font-weight: 400;
     }
 
-    /* signup form row */
+    /* signup form */
     .signup-form {
       margin-top: 0.5rem;
       max-width: 620px;
@@ -146,15 +137,10 @@
       transition: all 0.2s ease;
       outline: none;
       color: #111;
-      font-weight: 400;
     }
     .input-group input:focus {
       border-color: #a0a0a0;
       box-shadow: 0 0 0 2px rgba(0,0,0,0.02);
-    }
-    .input-group input::placeholder {
-      color: #c0c0c0;
-      font-weight: 400;
     }
     .btn-primary {
       background: #000000;
@@ -168,15 +154,45 @@
       cursor: pointer;
       transition: background 0.2s, transform 0.1s;
       letter-spacing: -0.2px;
-      margin-bottom: 0px;
       white-space: nowrap;
     }
-    .btn-primary:hover {
+    .btn-primary:hover:not(:disabled) {
       background: #2b2b2b;
     }
     .btn-primary:active {
       transform: scale(0.98);
     }
+    .btn-primary:disabled {
+      background: #b0b0b0;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* checkbox row */
+    .checkbox-group {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .checkbox-group input {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      cursor: pointer;
+    }
+    .checkbox-group label {
+      font-size: 0.85rem;
+      color: #4a4a4a;
+      cursor: pointer;
+      user-select: none;
+    }
+    .checkbox-group a {
+      color: #000;
+      text-decoration: underline;
+    }
+
     .form-message {
       margin-top: 1rem;
       font-size: 0.85rem;
@@ -192,24 +208,21 @@
       color: #bc3a2e;
     }
 
-    /* Image block */
+    /* image block */
     .image-block {
       width: 100%;
       border-radius: 28px;
       border: 1px solid #ececec;
       overflow: hidden;
       background: #fcfcfc;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.01);
     }
     .image-block img {
       width: 100%;
       height: auto;
       display: block;
-      object-fit: cover;
-      transition: all 0.3s ease;
     }
 
-    /* Feature cards (three items) */
+    /* feature cards */
     .features-grid {
       display: flex;
       flex-wrap: wrap;
@@ -223,16 +236,10 @@
       border: 1px solid #efefef;
       border-radius: 28px;
       padding: 1.8rem 1.5rem;
-      transition: border 0.2s, box-shadow 0.1s;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+      transition: border 0.2s;
     }
     .feature-card:hover {
       border-color: #dbdbdb;
-    }
-    .feature-icon {
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
     }
     .feature-icon svg {
       stroke: #2c2c2c;
@@ -240,6 +247,7 @@
       fill: none;
       width: 32px;
       height: 32px;
+      margin-bottom: 1.2rem;
     }
     .feature-card h3 {
       font-family: 'Space Grotesk', sans-serif;
@@ -253,10 +261,9 @@
       font-size: 0.9rem;
       line-height: 1.45;
       color: #555;
-      font-weight: 400;
     }
 
-    /* Logo row (4 logos) – EXACTLY like reference site */
+    /* logo grid */
     .logo-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -264,11 +271,6 @@
       align-items: center;
       justify-items: center;
       margin: 2rem 0;
-    }
-    .logo-item {
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
     .logo-item img {
       width: 100px;
@@ -282,19 +284,15 @@
       transform: scale(1.02);
     }
 
-    /* Footer */
     .footer {
       text-align: center;
       margin-top: 3rem;
       padding-top: 2rem;
       font-size: 0.75rem;
       color: #9b9b9b;
-      letter-spacing: 0.2px;
       border-top: 1px solid #f0f0f0;
-      font-weight: 400;
     }
 
-    /* responsive */
     @media (max-width: 880px) {
       .container {
         padding: 2rem 1.5rem;
@@ -305,10 +303,6 @@
       .subtitle {
         font-size: 1.3rem;
       }
-      .description {
-        font-size: 1rem;
-        max-width: 100%;
-      }
       .form-row {
         flex-direction: column;
         align-items: stretch;
@@ -316,44 +310,22 @@
       .btn-primary {
         white-space: normal;
         text-align: center;
-        justify-content: center;
       }
       .features-grid {
         flex-direction: column;
-        gap: 1.2rem;
       }
       .logo-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 2rem 1.5rem;
       }
     }
-
     @media (max-width: 540px) {
       h1 {
         font-size: 2.5rem;
-      }
-      .feature-card {
-        padding: 1.5rem;
       }
       .logo-item img {
         width: 80px;
         height: 80px;
       }
-    }
-
-    /* subtle touches */
-    .thin-border-bottom {
-      border-bottom: 1px solid #efefef;
-    }
-    img, .image-block {
-      user-select: none;
-    }
-    button {
-      background: none;
-      border: none;
-    }
-    input {
-      background-color: #fff;
     }
   </style>
 </head>
@@ -361,7 +333,7 @@
 <div class="grid-bg"></div>
 <div class="container">
   
-  <!-- 1. Hero section with logo area, title, form -->
+  <!-- Hero section -->
   <div class="hero-section">
     <div class="logo-marker">
       <span class="logo-simple">CRP</span>
@@ -372,36 +344,43 @@
       Join the early access program to receive beta features, experimental tools, and priority product updates — before they reach the public release.
     </div>
 
-    <!-- Signup row (name + email + Join) -->
-    <div class="signup-form">
+    <!-- Formspree signup form with consent checkbox -->
+    <form action="https://formspree.io/f/xkokpnzp" method="POST" class="signup-form" id="signupForm">
       <div class="form-row">
         <div class="input-group">
           <label>Full name</label>
-          <input type="text" id="signupName" placeholder="Alex Morgan" autocomplete="name">
+          <input type="text" name="name" required placeholder="Alex Morgan" autocomplete="name">
         </div>
         <div class="input-group">
           <label>Email address</label>
-          <input type="email" id="signupEmail" placeholder="test@gmail.com" autocomplete="email">
+          <input type="email" name="email" required placeholder="test@gmail.com" autocomplete="email">
         </div>
-        <button class="btn-primary" id="joinButton">Join</button>
+        <button type="submit" class="btn-primary" id="joinButton" disabled>Join</button>
       </div>
-      <div id="formFeedback" class="form-message"></div>
-    </div>
+      
+      <!-- Consent checkbox -->
+      <div class="checkbox-group">
+        <input type="checkbox" id="consentCheckbox" required>
+        <label for="consentCheckbox">
+          I agree to receive email updates and news about CRP Focus. 
+          <a href="#" target="_blank">Privacy policy</a>.
+        </label>
+      </div>
+      <div id="formMessage" class="form-message"></div>
+    </form>
   </div>
 
-  <!-- 2. Image section with user-provided replaceable image URL -->
+  <!-- Image section -->
   <div class="image-section">
     <div class="image-block">
-      <img id="heroImage" src="https://www.image2url.com/r2/default/images/1776869274976-74e932ff-18d5-462e-885b-c6ed42d42bcf.png"
-           alt="CRP early access"
-           style="width:100%; height:auto; display:block;">
+      <img src="https://www.image2url.com/r2/default/images/1776869274976-74e932ff-18d5-462e-885b-c6ed42d42bcf.png"
+           alt="CRP early access preview">
     </div>
   </div>
 
-  <!-- 3. Feature section: three items with clean cards + subtle icons -->
+  <!-- Feature cards -->
   <div class="features-section">
     <div class="features-grid">
-      <!-- Early feature access -->
       <div class="feature-card">
         <div class="feature-icon">
           <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
@@ -411,10 +390,9 @@
         <h3>Early feature access</h3>
         <p>Get exclusive access to features before they are released. Influence development and try cutting-edge tools.</p>
       </div>
-      <!-- Experimental updates -->
       <div class="feature-card">
         <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
             <path d="M20 12V8H4V12M20 12L12 20L4 12M20 12H4" />
             <path d="M12 4V8M12 16V20" />
             <circle cx="12" cy="12" r="2" />
@@ -423,7 +401,6 @@
         <h3>Experimental updates</h3>
         <p>Receive early experimental builds, provide feedback, and help us refine the next generation of CRP Focus.</p>
       </div>
-      <!-- Direct updates -->
       <div class="feature-card">
         <div class="feature-icon">
           <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" fill="none">
@@ -436,93 +413,53 @@
     </div>
   </div>
 
-  <!-- 4. Logo row – exactly matching the reference design (square, grayscale, hover effect) -->
+  <!-- Logo row (replaceable) -->
   <div class="logos-section">
     <div class="logo-grid">
-      <div class="logo-item">
-        <img src="https://i.postimg.cc/K8zf4q4q/CRPlogo.png" alt="CRP logo" id="LOGO_1_URL">
-      </div>
-      <div class="logo-item">
-        <img src="https://i.pinimg.com/1200x/7c/c0/71/7cc0717cb4c4dfcdb165ac769d8c3dce.jpg" alt="Partner logo 2" id="LOGO_2_URL">
-      </div>
-      <div class="logo-item">
-        <img src="https://images.g2crowd.com/uploads/product/image/068775cb495a74abb09de055d82e9360/easyeda.png" alt="Partner logo 3" id="LOGO_3_URL">
-      </div>
-      <div class="logo-item">
-        <img src="https://i.pinimg.com/1200x/78/80/7f/78807f4120db394a78b0e151cebaf8b8.jpg" alt="Partner logo 4" id="LOGO_4_URL">
-      </div>
+      <div class="logo-item"><img src="https://i.postimg.cc/K8zf4q4q/CRPlogo.png" alt="CRP logo"></div>
+      <div class="logo-item"><img src="https://i.pinimg.com/1200x/7c/c0/71/7cc0717cb4c4dfcdb165ac769d8c3dce.jpg" alt="Partner logo 2"></div>
+      <div class="logo-item"><img src="https://images.g2crowd.com/uploads/product/image/068775cb495a74abb09de055d82e9360/easyeda.png" alt="Partner logo 3"></div>
+      <div class="logo-item"><img src="https://i.pinimg.com/1200x/78/80/7f/78807f4120db394a78b0e151cebaf8b8.jpg" alt="Partner logo 4"></div>
     </div>
   </div>
 
-  <!-- 5. Footer -->
   <footer class="footer">
     ©2026 CRP. All rights reserved.
   </footer>
 </div>
 
 <script>
-  // ========== EARLY ACCESS SIGNUP HANDLER ==========
+  // Enable/disable Join button based on checkbox
   const joinBtn = document.getElementById('joinButton');
-  const nameInput = document.getElementById('signupName');
-  const emailInput = document.getElementById('signupEmail');
-  const feedbackDiv = document.getElementById('formFeedback');
+  const consentCheck = document.getElementById('consentCheckbox');
+  const form = document.getElementById('signupForm');
+  const messageDiv = document.getElementById('formMessage');
 
-  function showMessage(msg, isError = false) {
-    feedbackDiv.textContent = msg;
-    feedbackDiv.classList.add('show');
-    if (isError) {
-      feedbackDiv.classList.add('error');
-    } else {
-      feedbackDiv.classList.remove('error');
-    }
-    setTimeout(() => {
-      if (feedbackDiv.textContent === msg) {
-        feedbackDiv.classList.remove('show');
-      }
-    }, 4000);
+  function toggleJoinButton() {
+    joinBtn.disabled = !consentCheck.checked;
   }
+  consentCheck.addEventListener('change', toggleJoinButton);
+  toggleJoinButton(); // initial state
 
-  function validateEmail(email) {
-    const re = /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/;
-    return re.test(email);
-  }
-
-  function handleSignup(e) {
-    e.preventDefault();
-    const name = nameInput.value.trim();
-    const email = emailInput.value.trim();
-
-    if (!name) {
-      showMessage('Please enter your full name.', true);
-      nameInput.focus();
-      return;
-    }
-    if (!email) {
-      showMessage('Email address is required.', true);
-      emailInput.focus();
-      return;
-    }
-    if (!validateEmail(email)) {
-      showMessage('Please provide a valid email address (e.g., name@domain.com).', true);
-      emailInput.focus();
-      return;
-    }
-
-    console.log(`✅ Early access signup: Name: ${name}, Email: ${email}`);
-    showMessage(`✨ Thanks ${name.split(' ')[0] || 'friend'}! You're on the early access list. We'll reach out with updates.`);
-    
+  // Handle form submission to show custom success/error message (optional)
+  form.addEventListener('submit', async (e) => {
+    // Formspree will handle the actual POST, but we can show a loading state
     joinBtn.disabled = true;
-    setTimeout(() => { joinBtn.disabled = false; }, 2000);
-  }
-
-  joinBtn.addEventListener('click', handleSignup);
-  [nameInput, emailInput].forEach(input => {
-    input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') handleSignup(e);
-    });
+    joinBtn.textContent = 'Sending...';
+    messageDiv.classList.remove('show', 'error');
+    messageDiv.textContent = '';
+    
+    // Let the native form submit to Formspree
+    // If you want to handle AJAX, you could use fetch, but simpler: let it submit.
+    // We'll add a small timeout to re-enable if something fails, but it's fine.
+    setTimeout(() => {
+      // This runs only if the page doesn't navigate (if fetch is used, but we are using standard submit)
+      // Not critical because page will reload on success.
+    }, 500);
   });
 
-  console.log('CRP Focus | Early Access Landing | Logo section updated to reference style (100px squares, grayscale, hover effect)');
+  // If the form fails to submit (e.g., network error) we could catch, but native submit handles it.
+  console.log('Formspree early access — replace YOUR_FORM_ID with your actual endpoint');
 </script>
 </body>
 </html>
