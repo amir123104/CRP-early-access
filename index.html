@@ -390,15 +390,14 @@
     </div>
   </div>
 
-  <!-- 2. Image section (replaceable image URL) -->
+  <!-- 2. Image section with user-provided replaceable image URL -->
   <div class="image-section">
     <div class="image-block">
-      <!-- REPLACEABLE IMAGE URL: update src attribute with any product visual -->
-      <img id="heroImage" src="data:image/svg+xml,%3Csvg xmlns='https://www.image2url.com/r2/default/images/1776869274976-74e932ff-18d5-462e-885b-c6ed42d42bcf.png' viewBox='0 0 1200 600'%3E%3Crect width='1200' height='600' fill='%23F8F8F8'/%3E%3Cpath d='M0 0 L1200 600 M1200 0 L0 600' stroke='%23E5E5E5' stroke-width='1'/%3E%3Ccircle cx='600' cy='300' r='80' fill='none' stroke='%23CDCDCD' stroke-width='1.5'/%3E%3Cline x1='520' y1='300' x2='680' y2='300' stroke='%23CDCDCD' stroke-width='1.2'/%3E%3Cline x1='600' y1='220' x2='600' y2='380' stroke='%23CDCDCD' stroke-width='1.2'/%3E%3Ctext x='600' y='320' font-family='monospace' font-size='18' fill='%23AAAAAA' text-anchor='middle'%3ECRP Focus%3C/text%3E%3C/svg%3E"
+      <!-- REPLACEABLE IMAGE: using the provided URL -->
+      <img id="heroImage" src="https://www.image2url.com/r2/default/images/1776869274976-74e932ff-18d5-462e-885b-c6ed42d42bcf.png"
            alt="CRP Focus product preview — replaceable image"
            style="width:100%; height:auto; display:block;">
     </div>
-    <!-- optional note: image placeholder is replaceable, just change the src -->
   </div>
 
   <!-- 3. Feature section: three items with clean cards + subtle icons -->
@@ -474,7 +473,6 @@
 
 <script>
   // ========== EARLY ACCESS SIGNUP HANDLER ==========
-  // Collect name & email with simple validation, no backend but shows success message
   const joinBtn = document.getElementById('joinButton');
   const nameInput = document.getElementById('signupName');
   const emailInput = document.getElementById('signupEmail');
@@ -521,35 +519,21 @@
       return;
     }
 
-    // success simulation — In real implementation you'd send to endpoint
-    // For campaign / early access: store or POST to signup API
-    console.log(`Early access signup: Name: ${name}, Email: ${email}`);
-    showMessage(`Thanks ${name.split(' ')[0] || 'friend'}! You're on the early access list. We'll reach out with updates.`);
+    console.log(`✅ Early access signup: Name: ${name}, Email: ${email}`);
+    showMessage(`✨ Thanks ${name.split(' ')[0] || 'friend'}! You're on the early access list. We'll reach out with updates.`);
     
-    // Optional: clear fields after success? keep minimal, but we can keep but reset message feeling
-    // Not resetting fields for demo but user can continue, but we do not clear to avoid confusion.
-    // For premium experience, keep data but no auto-clear. Provide subtle.
-    // Also prevent duplicate rapid submit
     joinBtn.disabled = true;
     setTimeout(() => { joinBtn.disabled = false; }, 2000);
   }
 
   joinBtn.addEventListener('click', handleSignup);
-  // allow enter key on inputs
-  const inputs = [nameInput, emailInput];
-  inputs.forEach(input => {
+  [nameInput, emailInput].forEach(input => {
     input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        handleSignup(e);
-      }
+      if (e.key === 'Enter') handleSignup(e);
     });
   });
 
-  // ---- Optional: code to highlight replaceable image and logo placeholders ----
-  // All placeholders are clearly defined and easy to swap.
-  // Provide console notes for developers.
-  console.log('CRP Focus | Early Access Landing | Replaceable assets: #heroImage, #logo1, #logo2, #logo3, #logo4');
+  console.log('CRP Focus | Early Access Landing | Main image URL set to user-provided link');
 </script>
 </body>
 </html>
