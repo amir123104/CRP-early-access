@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>CRP Focus · Early Access</title>
+  <!-- Google Fonts: Inter & Space Grotesk -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      color: #1a1a1a;
+      line-height: 1.4;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* subtle grid overlay (Swiss-tech inspired, barely visible) */
+    .grid-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background-image: 
+        linear-gradient(to right, rgba(0,0,0,0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,0.02) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    /* main container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 3rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* sections spacing */
+    .hero-section {
+      margin-bottom: 4rem;
+    }
+
+    .image-section {
+      margin-bottom: 5rem;
+    }
+
+    .features-section {
+      margin-bottom: 5rem;
+    }
+
+    .logos-section {
+      margin-bottom: 3rem;
+    }
+
+    /* logo area (top) */
+    .logo-marker {
+      margin-bottom: 3rem;
+    }
+    .logo-simple {
+      display: inline-block;
+      font-family: 'Space Grotesk', monospace;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      color: #2c2c2c;
+      background: #ffffff;
+      border: 1px solid #e2e2e2;
+      padding: 0.35rem 1rem;
+      border-radius: 40px;
+      backdrop-filter: blur(0px);
+      transition: border 0.2s;
+    }
+
+    /* typography */
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 4.2rem;
+      letter-spacing: -0.02em;
+      color: #000000;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      font-size: 1.5rem;
+      color: #2e2e2e;
+      margin-bottom: 1rem;
+      letter-spacing: -0.3px;
+    }
+
+    .description {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: #4a4a4a;
+      max-width: 620px;
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+    }
+
+    /* signup form row */
+    .signup-form {
+      margin-top: 0.5rem;
+      max-width: 620px;
+    }
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: flex-end;
+    }
+    .input-group {
+      flex: 1;
+      min-width: 180px;
+    }
+    .input-group label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+      color: #6b6b6b;
+      margin-bottom: 0.4rem;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      background: #ffffff;
+      border: 1px solid #eaeaea;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+      outline: none;
+      color: #111;
+      font-weight: 400;
+    }
+    .input-group input:focus {
+      border-color: #a0a0a0;
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.02);
+    }
+    .input-group input::placeholder {
+      color: #c0c0c0;
+      font-weight: 400;
+    }
+    .btn-primary {
+      background: #000000;
+      border: none;
+      padding: 0.9rem 2rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 0.95rem;
+      border-radius: 40px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: -0.2px;
+      margin-bottom: 0px;
+      white-space: nowrap;
+    }
+    .btn-primary:hover {
+      background: #2b2b2b;
+    }
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+    .form-message {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: #2c6e2c;
+      font-weight: 450;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .form-message.show {
+      opacity: 1;
+    }
+    .form-message.error {
+      color: #bc3a2e;
+    }
+
+    /* Image block */
+    .image-block {
+      width: 100%;
+      border-radius: 28px;
+      border: 1px solid #ececec;
+      overflow: hidden;
+      background: #fcfcfc;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+    }
+    .image-block img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      transition: all 0.3s ease;
+    }
+
+    /* Feature cards (three items) */
+    .features-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+    }
+    .feature-card {
+      flex: 1;
+      min-width: 200px;
+      background: #ffffff;
+      border: 1px solid #efefef;
+      border-radius: 28px;
+      padding: 1.8rem 1.5rem;
+      transition: border 0.2s, box-shadow 0.1s;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+    .feature-card:hover {
+      border-color: #dbdbdb;
+    }
+    .feature-icon {
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+    }
+    .feature-icon svg {
+      stroke: #2c2c2c;
+      stroke-width: 1.4;
+      fill: none;
+      width: 32px;
+      height: 32px;
+    }
+    .feature-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 1.3rem;
+      letter-spacing: -0.2px;
+      margin-bottom: 0.75rem;
+      color: #000;
+    }
+    .feature-card p {
+      font-size: 0.9rem;
+      line-height: 1.45;
+      color: #555;
+      font-weight: 400;
+    }
+
+    /* Logo row (4 logos) */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      align-items: center;
+      justify-items: center;
+      padding: 1rem 0;
+      border-top: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .logo-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 140px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .logo-item img {
+      max-width: 100%;
+      max-height: 48px;
+      width: auto;
+      filter: grayscale(100%) contrast(0.9);
+      transition: filter 0.2s;
+    }
+    .logo-item:hover {
+      opacity: 0.9;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      font-size: 0.75rem;
+      color: #9b9b9b;
+      letter-spacing: 0.2px;
+      border-top: 1px solid #f0f0f0;
+      font-weight: 400;
+    }
+
+    /* responsive */
+    @media (max-width: 880px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+      h1 {
+        font-size: 3rem;
+      }
+      .subtitle {
+        font-size: 1.3rem;
+      }
+      .description {
+        font-size: 1rem;
+        max-width: 100%;
+      }
+      .form-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn-primary {
+        white-space: normal;
+        text-align: center;
+        justify-content: center;
+      }
+      .features-grid {
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+      .logo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 540px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      .feature-card {
+        padding: 1.5rem;
+      }
+    }
+
+    /* subtle touches */
+    .thin-border-bottom {
+      border-bottom: 1px solid #efefef;
+    }
+    img, .image-block {
+      user-select: none;
+    }
+    button {
+      background: none;
+      border: none;
+    }
+    input {
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="container">
+  
+  <!-- 1. Hero section with logo area, title, form -->
+  <div class="hero-section">
+    <div class="logo-marker">
+      <span class="logo-simple">CRP</span>
+    </div>
+    <h1>CRP Focus</h1>
+    <div class="subtitle">Get early access to upcoming features</div>
+    <div class="description">
+      Join the early access program to receive beta features, experimental tools, and priority product updates — before they reach the public release. Shape the future of CRP Focus.
+    </div>
+
+    <!-- Signup row (name + email + Join) -->
+    <div class="signup-form">
+      <div class="form-row">
+        <div class="input-group">
+          <label>Full name</label>
+          <input type="text" id="signupName" placeholder="Alex Morgan" autocomplete="name">
+        </div>
+        <div class="input-group">
+          <label>Email address</label>
+          <input type="email" id="signupEmail" placeholder="hello@crpfocus.com" autocomplete="email">
+        </div>
+        <button class="btn-primary" id="joinButton">Join</button>
+      </div>
+      <div id="formFeedback" class="form-message"></div>
+    </div>
+  </div>
+
+  <!-- 2. Image section (replaceable image URL) -->
+  <div class="image-section">
+    <div class="image-block">
+      <!-- REPLACEABLE IMAGE URL: update src attribute with any product visual -->
+      <img id="heroImage" src="data:image/svg+xml,%3Csvg xmlns='https://www.image2url.com/r2/default/images/1776869274976-74e932ff-18d5-462e-885b-c6ed42d42bcf.png' viewBox='0 0 1200 600'%3E%3Crect width='1200' height='600' fill='%23F8F8F8'/%3E%3Cpath d='M0 0 L1200 600 M1200 0 L0 600' stroke='%23E5E5E5' stroke-width='1'/%3E%3Ccircle cx='600' cy='300' r='80' fill='none' stroke='%23CDCDCD' stroke-width='1.5'/%3E%3Cline x1='520' y1='300' x2='680' y2='300' stroke='%23CDCDCD' stroke-width='1.2'/%3E%3Cline x1='600' y1='220' x2='600' y2='380' stroke='%23CDCDCD' stroke-width='1.2'/%3E%3Ctext x='600' y='320' font-family='monospace' font-size='18' fill='%23AAAAAA' text-anchor='middle'%3ECRP Focus%3C/text%3E%3C/svg%3E"
+           alt="CRP Focus product preview — replaceable image"
+           style="width:100%; height:auto; display:block;">
+    </div>
+    <!-- optional note: image placeholder is replaceable, just change the src -->
+  </div>
+
+  <!-- 3. Feature section: three items with clean cards + subtle icons -->
+  <div class="features-section">
+    <div class="features-grid">
+      <!-- Early feature access -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L15 8.5L22 9.5L17 14L18.5 21L12 17.5L5.5 21L7 14L2 9.5L9 8.5L12 2Z" />
+          </svg>
+        </div>
+        <h3>Early feature access</h3>
+        <p>Get exclusive access to features before they are released. Influence development and try cutting-edge tools.</p>
+      </div>
+      <!-- Experimental updates -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 12V8H4V12M20 12L12 20L4 12M20 12H4" />
+            <path d="M12 4V8M12 16V20" />
+            <circle cx="12" cy="12" r="2" />
+          </svg>
+        </div>
+        <h3>Experimental updates</h3>
+        <p>Receive early experimental builds, provide feedback, and help us refine the next generation of CRP Focus.</p>
+      </div>
+      <!-- Direct updates -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" fill="none">
+            <path d="M22 6L12 13L2 6M22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6L12 13L22 6Z" />
+          </svg>
+        </div>
+        <h3>Direct updates</h3>
+        <p>Get product news, changelogs, and insider updates directly from the team — no noise, just what matters.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Logo row: four replaceable logo image placeholders (monochrome/desaturated) -->
+  <div class="logos-section">
+    <div class="logo-grid">
+      <!-- Logo 1 - replaceable -->
+      <div class="logo-item">
+        <img id="logo1" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 40'%3E%3Crect width='120' height='40' fill='none'/%3E%3Ccircle cx='20' cy='20' r='8' fill='%23B0B0B0'/%3E%3Cpath d='M40 16 L50 24 L60 16' stroke='%23999999' fill='none' stroke-width='1.8'/%3E%3Crect x='68' y='12' width='10' height='16' fill='%23AAAAAA'/%3E%3Ctext x='90' y='26' font-family='monospace' font-size='12' fill='%23888888'%3EPartner%3C/text%3E%3C/svg%3E"
+             alt="partner logo placeholder — replaceable">
+      </div>
+      <!-- Logo 2 - replaceable -->
+      <div class="logo-item">
+        <img id="logo2" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 40'%3E%3Crect width='120' height='40' fill='none'/%3E%3Cpath d='M10 25 L20 15 L30 25 L20 35 Z' fill='%23A9A9A9' opacity='0.8'/%3E%3Crect x='40' y='14' width='14' height='14' fill='%239c9c9c'/%3E%3Ctext x='64' y='26' font-family='monospace' font-size='12' fill='%23828282'%3EStudio%3C/text%3E%3C/svg%3E"
+             alt="brand logo 2 placeholder — replaceable">
+      </div>
+      <!-- Logo 3 - replaceable -->
+      <div class="logo-item">
+        <img id="logo3" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 40'%3E%3Crect width='120' height='40' fill='none'/%3E%3Cpath d='M18 12 L28 12 L28 28 L18 28 Z' fill='%23B3B3B3'/%3E%3Ccircle cx='48' cy='20' r='6' fill='%23979797'/%3E%3Ctext x='68' y='25' font-family='monospace' font-size='11' fill='%238B8B8B'%3Ewave%3C/text%3E%3C/svg%3E"
+             alt="partner logo 3 placeholder — replaceable">
+      </div>
+      <!-- Logo 4 - replaceable -->
+      <div class="logo-item">
+        <img id="logo4" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 40'%3E%3Crect width='120' height='40' fill='none'/%3E%3Cpolygon points='14,10 26,10 32,20 26,30 14,30 8,20' fill='%23A5A5A5'/%3E%3Crect x='40' y='14' width='8' height='14' fill='%23A0A0A0'/%3E%3Ctext x='60' y='25' font-family='monospace' font-size='12' fill='%23868686'%3Ecore%3C/text%3E%3C/svg%3E"
+             alt="logo partner 4 placeholder — replaceable">
+      </div>
+    </div>
+    <!-- note: all logo images are replaceable via src, update to your own monochrome logos -->
+  </div>
+
+  <!-- 5. Footer -->
+  <footer class="footer">
+    ©2026 CRP. All rights reserved.
+  </footer>
+</div>
+
+<script>
+  // ========== EARLY ACCESS SIGNUP HANDLER ==========
+  // Collect name & email with simple validation, no backend but shows success message
+  const joinBtn = document.getElementById('joinButton');
+  const nameInput = document.getElementById('signupName');
+  const emailInput = document.getElementById('signupEmail');
+  const feedbackDiv = document.getElementById('formFeedback');
+
+  function showMessage(msg, isError = false) {
+    feedbackDiv.textContent = msg;
+    feedbackDiv.classList.add('show');
+    if (isError) {
+      feedbackDiv.classList.add('error');
+    } else {
+      feedbackDiv.classList.remove('error');
+    }
+    setTimeout(() => {
+      if (feedbackDiv.textContent === msg) {
+        feedbackDiv.classList.remove('show');
+      }
+    }, 4000);
+  }
+
+  function validateEmail(email) {
+    const re = /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/;
+    return re.test(email);
+  }
+
+  function handleSignup(e) {
+    e.preventDefault();
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+
+    if (!name) {
+      showMessage('Please enter your full name.', true);
+      nameInput.focus();
+      return;
+    }
+    if (!email) {
+      showMessage('Email address is required.', true);
+      emailInput.focus();
+      return;
+    }
+    if (!validateEmail(email)) {
+      showMessage('Please provide a valid email address (e.g., name@domain.com).', true);
+      emailInput.focus();
+      return;
+    }
+
+    // success simulation — In real implementation you'd send to endpoint
+    // For campaign / early access: store or POST to signup API
+    console.log(`Early access signup: Name: ${name}, Email: ${email}`);
+    showMessage(`Thanks ${name.split(' ')[0] || 'friend'}! You're on the early access list. We'll reach out with updates.`);
+    
+    // Optional: clear fields after success? keep minimal, but we can keep but reset message feeling
+    // Not resetting fields for demo but user can continue, but we do not clear to avoid confusion.
+    // For premium experience, keep data but no auto-clear. Provide subtle.
+    // Also prevent duplicate rapid submit
+    joinBtn.disabled = true;
+    setTimeout(() => { joinBtn.disabled = false; }, 2000);
+  }
+
+  joinBtn.addEventListener('click', handleSignup);
+  // allow enter key on inputs
+  const inputs = [nameInput, emailInput];
+  inputs.forEach(input => {
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSignup(e);
+      }
+    });
+  });
+
+  // ---- Optional: code to highlight replaceable image and logo placeholders ----
+  // All placeholders are clearly defined and easy to swap.
+  // Provide console notes for developers.
+  console.log('CRP Focus | Early Access Landing | Replaceable assets: #heroImage, #logo1, #logo2, #logo3, #logo4');
+</script>
+</body>
+</html>
